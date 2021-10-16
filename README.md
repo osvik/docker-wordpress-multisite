@@ -88,7 +88,7 @@ Then in your container shell:
 cd /import-export/
 ```
 
-Replace references
+Replace references bellow to your real domain/subdomain and database sql file.
 
 ```
 rpl 'https://yourdomain.org' 'https://localhost' yoursite_wordpress_db.sql
@@ -110,3 +110,7 @@ Now you can develop with your own computer tools inside the wp-content tool.
 ```
 cd ~/websites/mysite/wp-content
 ```
+
+## Notes
+
+- In `wp-content` it will be created a `debug.log` file.
