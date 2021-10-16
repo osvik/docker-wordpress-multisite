@@ -24,7 +24,8 @@ RUN \
   apt update && apt install -y \
   curl \
   wget \
-  unzip
+  unzip \
+  rpl
 EXPOSE 80 443
 WORKDIR /var/www/html
 RUN \

@@ -6,6 +6,8 @@ It uses Debian 11 “bullseye” as the basis, which is a common server distro. 
 
 ## Build the Docker image
 
+Normally you'll need to do this just once.
+
 ```
 cd /path/to/this/repository
 docker build -t wordpressmultisite .
@@ -13,31 +15,30 @@ docker build -t wordpressmultisite .
 
 ## Create the docker container
 
-Create the docker container with the binds:
+Create the docker container. You don't need to do this often...
 
-Don't forget to edit your own bind `/Users/osvaldogago/websites/mysite/wp-content` in the command bellow:
+Don't forget to edit your own binds (-v) in the command bellow:
 
 ```
-docker run -t -d -v "/Users/osvaldogago/websites/mysite/wp-content:/var/www/html/wp-content" -p 443:443 --name mysite wordpressmultisite
+docker run -t -d \
+  -v $HOME/websites/mysite/wp-content:/var/www/html/wp-content \
+  -v $HOME/websites/mysite/import-export:/import-export \
+  -p 443:443 \
+  --name mysite wordpressmultisite
 ```
+
+The `wp-content` folder is where themes, plugins and all will be developed.
+
+The `import-export` folder will be used to import the MySQL database dump from an existing site to this development container.
+
 
 ## Run the container
 
-To list running containers:
+List running containers, start and stop containers: 
 
 ```
 docker ps
-```
-
-To start a stopped container:
-
-```
 docker start mysite
-```
-
-To stop a container:
-
-```
 docker stop mysite
 ```
 
@@ -76,6 +77,31 @@ https://localhost/
 - [PhpMyAdmin](https://localhost/phpmyadmin/)
 - Username: `generic`
 - Password: `gfvcry35y@ehG1209`
+
+## Use a copy of your website database for development
+
+First download a dump of your production site database into your `$HOME/websites/mysite/import-export` folder.
+
+Then in your container shell:
+
+```
+cd /import-export/
+```
+
+Replace references
+
+```
+rpl 'https://yourdomain.org' 'https://localhost' yoursite_wordpress_db.sql
+rpl 'yourdomain.org' 'localhost' yoursite_wordpress_db.sql
+```
+
+Update the container database with the database from the site:
+
+```
+mariadb -u root -e "DROP DATABASE wordpressdb;"
+mariadb -u root -e "CREATE DATABASE wordpressdb;"
+mariadb -u root wordpressdb < yoursite_wordpress_db.sql
+```
 
 ## Conclusion
 
