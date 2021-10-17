@@ -117,3 +117,5 @@ cd ~/websites/mysite/wp-content
 ## Notes
 
 - In `wp-content` it will be created a `debug.log` file.
+- Access log can be obtained in the container shell with: `tail -f /var/log/nginx/access.log` and error log with: `tail -f /var/log/nginx/error.log`
+
