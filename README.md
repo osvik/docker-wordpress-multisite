@@ -1,8 +1,10 @@
-# Develop in Wordpress multisite
+# Develop Wordpress multisite in docker
 
 This repository creates a **development environment** in Docker to develop a website in Wordpress multisite. **Do not use in production.**
 
 It uses Debian 11 “bullseye” as the basis, which is a common server distro. Read the [Dockerfile](Dockerfile) for more information.
+
+For simplicity it uses a single container for the PHP server and MySQL. This will also allow you to run different containers and different databases for different git feature branches if you want.
 
 ## Build the Docker image
 
@@ -34,18 +36,19 @@ The `import-export` folder will be used to import the MySQL database dump from a
 
 ## Run the container
 
-List running containers, start and stop containers: 
+List running containers, start, stop and remove containers: 
 
 ```
 docker ps
 docker start mysite
 docker stop mysite
+docker rm
 ```
 
 To login the container:
 
 ```
-docker exec -ti mysite sh -c "bash"
+docker exec -ti mysite bash
 ```
 
 ## In the container /app folder
