@@ -44,9 +44,9 @@ COPY sql/create_sql_user.sql .
 RUN \
   service mariadb start && \
   mariadb -u root < create_sql_user.sql
-COPY servers_start.sh .
+COPY *.sh .
 RUN \
-  chmod u+x servers_start.sh
+  chmod u+x *.sh
 WORKDIR /var/www/html
 RUN \
   wget https://wordpress.org/latest.zip && \
@@ -70,7 +70,5 @@ RUN \
  rm -r /var/www/html/wp-content/themes/twentytwenty && \
  mkdir /backups && \
  cp -R /var/www/html/wp-content /backups
-COPY default_wp-content.sh .
-RUN \
- chmod u+x default_wp-content.sh
+
 
