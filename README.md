@@ -83,19 +83,12 @@ https://localhost/
 
 ## Use a copy of your website database for development
 
-First download a dump of your production site database into your `$HOME/websites/mysite/import-export` folder.
+First download a dump of your production site database into your `$HOME/websites/mysite/import-export` folder (in your computer).
 
-Then in your container shell:
-
-```
-cd /import-export/
-```
-
-Replace references bellow to your real domain/subdomain and database sql file.
+Then, in your container shell, replace references bellow to your real domain/subdomain and database sql file.
 
 ```
-rpl 'https://yourdomain.org' 'https://localhost' yoursite_wordpress_db.sql
-rpl 'yourdomain.org' 'localhost' yoursite_wordpress_db.sql
+./import_wordpress_db.sh yourdomain.org yoursite_wordpress_db.sql
 ```
 
 Update the container database with the database from the site:
