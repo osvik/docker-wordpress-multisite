@@ -65,7 +65,7 @@ List running containers, start, stop and remove containers:
 docker ps
 docker start mysite
 docker stop mysite
-docker rm
+docker rm mysite
 ```
 
 To login the container:
