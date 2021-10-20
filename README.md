@@ -56,6 +56,18 @@ The `wp-content` folder is where themes, plugins and all will be developed.
 
 The `import-export` folder will be used to import the MySQL database dump from an existing site to this development container.
 
+**Alternatively** you can separate the uploads folder in the host with this container setting:
+
+```
+docker run -t -d \
+  -v $HOME/websites/mysite2/wp-content:/var/www/html/wp-content \
+  -v $HOME/websites/mysite2/uploads:/var/www/html/wp-content/uploads \
+  -v $HOME/websites/mysite2/import-export:/import-export \
+  -p 443:443 \
+  --name mysite wordpressmultisite
+```
+
+This might be useful to make it easier to rsync to update the images.
 
 ## Run the container
 
