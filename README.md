@@ -104,7 +104,13 @@ Now you can visit your website home page:
 
 https://localhost/
 
-Please note it  uses a self signed https certificate, so you'll need to accept the browser's exception.
+Please note it uses a self-signed https certificate, so you'll need to accept the browser's exception the first time. In **Firefox** and **Safari** this is very straightforward. Just follow the interactive instructions on screen.
+
+In **Chome**-based browsers you must go to [localhost](https://localhost), inspect with the developer tools, open the console and paste the following command:
+
+```
+sendCommand(SecurityInterstitialCommandId.CMD_PROCEED)
+```
 
 ## Login in Wordpress
 
