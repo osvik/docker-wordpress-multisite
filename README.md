@@ -8,8 +8,8 @@
   - [Login in PhpMyAdmin](#login-in-phpmyadmin)
   - [Copy your website database to the development environment](#copy-your-website-database-to-the-development-environment)
   - [Database snapshots](#database-snapshots)
-  - [Conclusion](#conclusion)
-  - [Notes](#notes)
+  - [Develop with git, vscode and other programs](#develop-with-git-vscode-and-other-programs)
+  - [Error logs](#error-logs)
 
 # Develop Wordpress multisite in docker
 
@@ -17,7 +17,7 @@ This repository creates a **development environment** in Docker to develop a web
 
 It uses Debian 11 “bullseye” as the basis, which is a common server distro. Read the [Dockerfile](Dockerfile) for more information.
 
-For simplicity it uses a single container for the PHP server and MySQL. This will also allow you to run different containers and different databases for different git feature branches if you want.
+For simplicity it uses a single container for the PHP server and MySQL. This will also allow you to run different containers and different databases for different git feature branches if you want. Or revert to a previously exported database state.
 
 ## Start Docker
 
@@ -136,6 +136,8 @@ Update the container database with the database from the site:
 ./import_wordpress_db.sh yourdomain.org yoursite_wordpress_db.sql
 ```
 
+This will update yourdomain.org references in the database to `localhost`. If your site URL includes the www, then you should add it to the command above.
+
 ## Database snapshots
 
 Snapshots allow you to save the database state at any moment. And revert to that state latter.
@@ -155,18 +157,18 @@ To import this snapshot latter:
 ```
 
 
-## Conclusion
+## Develop with git, vscode and other programs
 
-Now you can develop with your own computer tools inside the `wp-content` folder.
+Now you can develop themes or plugins using your own computer tools inside the `wp-content` folder.
 
 ```
 cd ~/websites/mysite/wp-content
 ```
 
-## Notes
+## Error logs
 
-- In `wp-content` it will be created a Wordpress `debug.log` file.
-- The access and error logs can be obtained in the container shell with:
+- It will be created a Wordpress `debug.log` file inside `wp-content` 
+- The access and error logs can be obtained in the container shell with `tail`, `cat` or `more`, like for example:
 
 ```
 tail -f /var/log/nginx/access.log
